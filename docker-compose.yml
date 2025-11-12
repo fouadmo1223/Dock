@@ -23,7 +23,8 @@ services:
   mongo-db:
     container_name: mongo-db
     image: mongo:6.0
-    
+    volumes:
+      - mongo-data:/data/db #sync with volume defined below
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
@@ -32,3 +33,9 @@ services:
       - "27017:27017"
     env_file:
       - .env
+
+
+# to save Data base
+volumes:
+  mongo-data: # name of volume
+    driver: local
