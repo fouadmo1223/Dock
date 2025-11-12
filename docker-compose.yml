@@ -1,0 +1,13 @@
+
+# // for containers => service name as hostname
+version: '3'
+services:
+  node-app:
+    container_name: node-app
+    build: .
+    volumes:
+    # FOR HOT RELOAD IN DOCKER
+      - .:/app:ro
+      - ./node_modules:/app/node_modules
+    ports:
+      - '3001:3001'
