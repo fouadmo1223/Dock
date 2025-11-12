@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:18-alpine as development
 
 WORKDIR /app
 
@@ -23,3 +23,20 @@ CMD ["npm", "run", "dev"]
 # -v :/Docker/node1/node_modules # to prevent overwriting node_modules folder in the container with empty folder from
 # host machine visible inside the container not the other way around
  # you should add absolute path before the host path when using Docker on Windows
+
+
+FROM node:18-alpine as production
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install --only=production
+
+COPY . .
+
+COPY --from=development /app/node_modules ./node_modules
+
+EXPOSE 3001
+
+CMD ["node", "index.js"]
