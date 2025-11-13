@@ -11,6 +11,7 @@ services:
     volumes:
       # FOR HOT RELOAD IN DOCKER
       - .:/app
+      
     ports:
       - "3001:3001"
     environment:
@@ -50,9 +51,14 @@ services:
   redis:
     container_name: redis
     image: redis:7.0
+    volumes:
+      - redis-data:/data
     ports:
       - "6379:6379"
 # 🧱 Persistent volume for MongoDB data
 volumes:
   mongo-data:
     driver: local
+  redis-data:
+    driver: local
+
